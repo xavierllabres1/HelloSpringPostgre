@@ -1,0 +1,19 @@
+// Descarrega Docker
+docker pull postgres
+
+// Instancia Container
+docker run --name postgresql -e POSTGRES_USER=DBUser -e POSTGRES_PASSWORD=DBPass -p 5432:5432 -v /data:/var/lib/postgresql/data -d postgres
+
+// Entrar al bash del container
+docker exec -it <id-container> bash
+
+// Crear BD i taula
+#
+    su - postgres
+$
+    psql -U DBUser
+    #
+        CREATE DATABASE hello;
+        \c hello
+        CREATE TABLE nombres(id SERIAL PRIMARY KEY, nombre VARCHAR(30));
+        INSERT INTO nombres (nombre) VALUES ('Xavi');
