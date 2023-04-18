@@ -1,9 +1,6 @@
 package com.world.hello.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -11,14 +8,15 @@ import java.util.Objects;
 public class Nombre {
 
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id=0L;
 
     private String nombre;
 
     public Nombre(){}
 
     public Nombre(String nombre) {
+
         this.nombre = nombre;
     }
 

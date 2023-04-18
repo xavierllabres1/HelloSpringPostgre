@@ -1,3 +1,4 @@
+// Procediment realitzat per instanciar PostgreSQL a través de Docker
 // Descarrega Docker
 docker pull postgres
 
@@ -5,7 +6,7 @@ docker pull postgres
 docker run --name postgresql -e POSTGRES_USER=DBUser -e POSTGRES_PASSWORD=DBPass -p 5432:5432 -v /data:/var/lib/postgresql/data -d postgres
 
 // Entrar al bash del container
-docker exec -it <id-container> bash
+docker exec -it postgresql bash
 
 // Crear BD i taula
 #
