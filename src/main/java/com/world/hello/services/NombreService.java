@@ -19,6 +19,7 @@ public class NombreService {
         return result.orElse(null);
     }
     public List<Nombre> findAll(){
+
         return repository.findAll();
     }
 
@@ -27,6 +28,7 @@ public class NombreService {
     }
 
     public void delete(Nombre nombre){
+
         repository.delete(nombre);
     }
 
