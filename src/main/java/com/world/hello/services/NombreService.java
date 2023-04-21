@@ -1,6 +1,6 @@
 package com.world.hello.services;
 
-import com.world.hello.models.Nombre;
+import com.world.hello.models.Name;
 import com.world.hello.repository.NombreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,20 +14,20 @@ public class NombreService {
     @Autowired
     private NombreRepository repository;
 
-    public Nombre findByID(long id){
-        Optional<Nombre> result = repository.findById(id);
+    public Name findByID(long id){
+        Optional<Name> result = repository.findById(id);
         return result.orElse(null);
     }
-    public List<Nombre> findAll(){
+    public List<Name> findAll(){
 
         return repository.findAll();
     }
 
-    public void save(Nombre nombre){
+    public void save(Name nombre){
         repository.save(nombre);
     }
 
-    public void delete(Nombre nombre){
+    public void delete(Name nombre){
 
         repository.delete(nombre);
     }

@@ -1,6 +1,6 @@
 package com.world.hello.controllers;
 
-import com.world.hello.models.Nombre;
+import com.world.hello.models.Name;
 import com.world.hello.services.NombreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,19 +24,19 @@ public class NombreController {
 
     @GetMapping("/new")
     public String newNombreForm(Model model){
-        model.addAttribute("nombreForm", new Nombre());
+        //model.addAttribute("nombreForm", new Name().builder);
         return "form";
     }
 
     @PostMapping("/new/submit")
-    public String newNombreSubmit(@ModelAttribute("nombreForm") Nombre nombre){
+    public String newNombreSubmit(@ModelAttribute("nombreForm") Name nombre){
         nombreService.save(nombre);
         return"redirect:/";
     }
 
     @GetMapping("/edit/{id}")
     public String editNombreForm(@PathVariable long id, Model model){
-        Nombre nombre = nombreService.findByID(id);
+        Name nombre = nombreService.findByID(id);
         if(nombre != null){
             model.addAttribute("nombreForm", nombre);
             return "form";
@@ -46,13 +46,13 @@ public class NombreController {
     }
 
     @PostMapping("/edit/submit")
-    public String editNombreSubmit (@ModelAttribute("nombreForm") Nombre nombre){
+    public String editNombreSubmit (@ModelAttribute("nombreForm") Name nombre){
         nombreService.save(nombre);
         return "redirect:/";
     }
 
     @PostMapping("/edit/delete")
-    public String editNombreDelete(@ModelAttribute("nombreForm")Nombre nombre){
+    public String editNombreDelete(@ModelAttribute("nombreForm") Name nombre){
         nombreService.delete(nombre);
         return "redirect:/";
     }
