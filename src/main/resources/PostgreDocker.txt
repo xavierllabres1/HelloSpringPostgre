@@ -16,5 +16,5 @@ $
     #
         CREATE DATABASE hello;
         \c hello
-        CREATE TABLE nombres(id SERIAL PRIMARY KEY, nombre VARCHAR(30));
-        INSERT INTO nombres (nombre) VALUES ('Xavi');
+        CREATE TABLE names (id SERIAL PRIMARY KEY, firstName VARCHAR(30));
+        INSERT INTO names (firstName) VALUES ('Xavi');

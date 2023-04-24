@@ -53,12 +53,11 @@
       <tr>
         <th>id</th>
         <th>Saludo</th>
-
       </thead>
       <tbody>
-      <tr th:each="nombre : ${namelist}">
-        <td><a th:href="@{/edit/{id} (id=${nombre.id})}"><p th:text="${nombre.id}"></p></a></td>
-        <td th:text="'Hola ' + ${nombre.nombre}">Pepe</td>
+      <tr th:each="name : ${nameList}">
+        <td><a th:href="@{/edit/{id} (id=${name.id})}"><p th:text="${name.id}"></p></a></td>
+        <td th:text="'Hola ' + ${name.firstName}">Pepe</td>
       </tr>
       </tbody>
     </table>
