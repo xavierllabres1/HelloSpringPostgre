@@ -2,7 +2,6 @@ package com.world.hello.services;
 
 import com.world.hello.models.Name;
 import com.world.hello.repository.NameRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

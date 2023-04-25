@@ -1,7 +1,10 @@
 package com.world.hello.models;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 
+@Getter
 @Entity
 @Table(name = "names", schema = "public")
 public final class Name {
@@ -20,13 +23,6 @@ public final class Name {
         this.firstName = builder.firstName;
     }
 
-
-    public Long getId() {
-        return id;
-    }
-    public String getFirstName() {
-        return firstName;
-    }
 
     public static class Builder{
 
@@ -50,6 +46,4 @@ public final class Name {
         }
 
     }
-
-
 }

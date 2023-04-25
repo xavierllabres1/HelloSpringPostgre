@@ -15,6 +15,6 @@ $
     psql -U DBUser
     #
         CREATE DATABASE hello;
-        \c hello
+        \c hello;
         CREATE TABLE names (id SERIAL PRIMARY KEY, firstName VARCHAR(30));
         INSERT INTO names (firstName) VALUES ('Xavi');
