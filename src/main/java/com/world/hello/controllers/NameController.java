@@ -26,12 +26,12 @@ public class NameController {
 
     @GetMapping("/new")
     public String newNameForm(Model model){
-        model.addAttribute("nameForm", new Name.Builder().setId(0L).build());
+        model.addAttribute("nameForm", new Name().toBuilder().setId(0L).build());
         return "form";
     }
 
     @PostMapping("/new/submit")
-    public String newNameSubmit(@ModelAttribute("nameForm") Name.Builder builder){
+    public String newNameSubmit(@ModelAttribute("nameForm") Name.NameBuilder builder){
         Name name = builder.build();
         nameService.save(name);
         return"redirect:/";
@@ -49,14 +49,14 @@ public class NameController {
     }
 
     @PostMapping("/edit/submit")
-    public String editNameSubmit(@ModelAttribute("nameForm") Name.Builder builder){
+    public String editNameSubmit(@ModelAttribute("nameForm") Name.NameBuilder builder){
         Name name = builder.build();
         nameService.save(name);
         return "redirect:/";
     }
 
     @PostMapping("/edit/delete")
-    public String editNameDelete(@ModelAttribute("nameForm") Name.Builder builder){
+    public String editNameDelete(@ModelAttribute("nameForm") Name.NameBuilder builder){
         Name name = builder.build();
         nameService.delete(name);
         return "redirect:/";
