@@ -38,11 +38,10 @@ class NameServiceTest {
         List<Name> names = nameService.findAll();
 
         //JUnit
-        assertNotNull(names);   //Lista not null
-        assertEquals(1, names.size());  // Lista con una entrada
-
+        assertNotNull(names);
+        assertEquals(1, names.size());
         //Mockito
-        verify(nameRepository, times(1)).findAll(); // 1 llamada a findAll()
+        verify(nameRepository, times(1)).findAll();
     }
 
     @Test
@@ -52,11 +51,10 @@ class NameServiceTest {
         List<Name> names = nameService.findAll();
 
         //JUnit
-        assertNotNull(names);                   // Recuperar lista
-        assertEquals(0, names.size());  // Lista vacia
-
+        assertNotNull(names);
+        assertEquals(0, names.size());
         //Mockito
-        verify(nameRepository, times(1)).findAll(); // 1 llamada a findAll()
+        verify(nameRepository, times(1)).findAll();
     }
 
     @Test
@@ -66,10 +64,9 @@ class NameServiceTest {
         List<Name> names = nameService.findAll();
 
         //JUnit
-        assertNull(names);                   // Recuperar lista
-
+        assertNull(names);
         //Mockito
-        verify(nameRepository, times(1)).findAll(); // 1 llamada a findAll()
+        verify(nameRepository, times(1)).findAll();
     }
 
     @Test
@@ -81,23 +78,39 @@ class NameServiceTest {
         //JUnit
         assertNotNull(name);
         assertEquals("Jhon", name.getFirstName());
-
         //Mockito
-        verify(nameRepository, times(1)).findById(1L); // 1 llamada a findById
+        verify(nameRepository, times(1)).findById(1L);
     }
 
     @Test
     @DisplayName("Service - Find by Id Not Found")
     void findByIDNotFound() {
         when(nameRepository.findById(anyLong())).thenReturn(Optional.ofNullable(null));
-
         Name name = nameService.findById(anyLong());
 
         //JUnit
         assertNull(name);
+        //Mockito
+        verify(nameRepository, times(1)).findById(anyLong());
+    }
+
+    @Test
+    @DisplayName("Service - Save")
+    void save() {
+        Name name = new Name.Builder().setId(1L).setFirstName("Jhon").build();
+        nameService.save(name);
 
         //Mockito
-        verify(nameRepository, times(1)).findById(anyLong()); // 1 llamada a findById
+        verify(nameRepository, times(1)).save(name);
+    }
+    @Test
+    @DisplayName("Service - Delete")
+    void delete() {
+        Name name = new Name.Builder().setId(1L).setFirstName("Jhon").build();
+        nameService.delete(name);
+
+        //Mockito
+        verify(nameRepository, times(1)).delete(name);
     }
 
 }
