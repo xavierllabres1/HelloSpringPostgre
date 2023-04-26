@@ -2,7 +2,6 @@ package com.world.hello.services;
 
 import com.world.hello.models.Name;
 import com.world.hello.repository.NameRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,10 +16,12 @@ public class NameService {
         this.repository = repository;
     }
 
-    public Name findByID(Long id){
+    public Name findById(Long id){
         Optional<Name> result = repository.findById(id);
+        System.out.println(result);
         return result.orElse(null);
     }
+
     public List<Name> findAll(){
         return repository.findAll();
     }

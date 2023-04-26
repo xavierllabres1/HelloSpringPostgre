@@ -20,6 +20,10 @@ public final class Name {
         this.firstName = builder.firstName;
     }
 
+    public Name(Long id, String firstName) {
+        this.id = id;
+        this.firstName = firstName;
+    }
 
     public Long getId() {
         return id;
@@ -28,7 +32,7 @@ public final class Name {
         return firstName;
     }
 
-    public static class Builder{
+    public static class Builder {
 
         private Long id;
         private String firstName;

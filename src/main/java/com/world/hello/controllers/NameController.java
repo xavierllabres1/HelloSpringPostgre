@@ -39,7 +39,7 @@ public class NameController {
 
     @GetMapping("/edit/{id}")
     public String editNameForm(@PathVariable Long id, Model model){
-        Name name = nameService.findByID(id);       // Aquí no hi ha builder???
+        Name name = nameService.findById(id);       // Aquí no hi ha builder???
         if(name != null){
             model.addAttribute("nameForm", name);
             return "form";
