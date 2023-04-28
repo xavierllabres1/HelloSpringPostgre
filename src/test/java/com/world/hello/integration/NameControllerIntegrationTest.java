@@ -36,11 +36,11 @@ public class NameControllerIntegrationTest {
     @Test
     @DisplayName("Integration - FindAll")
     public void testFindAll() throws Exception {
-        List<Name> nameList = new ArrayList<>();
+        List<Name> names = new ArrayList<>();
         Name name = new Name.Builder().setId(1L).setFirstName("Jhon").build();
-        nameList.add(name);
+        names.add(name);
 
-        given(nameService.findAll()).willReturn(nameList);
+        given(nameService.findAll()).willReturn(names);
 
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
@@ -53,7 +53,31 @@ public class NameControllerIntegrationTest {
                             )
                         )
                     ))
-//                .andDo(MockMvcResultHandlers.print())
+                .andDo(MockMvcResultHandlers.print())
                 ;
     }
+
+    @Test
+    @DisplayName("Integration - Find By Id")
+    public void testFindAById() throws Exception {
+        Name name = new Name.Builder().setId(1L).setFirstName("Jhon").build();
+
+        given(nameService.findById(1L)).willReturn(name);
+
+        mockMvc.perform(get("/"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("nameList"))
+                .andExpect(model().attribute("nameList", hasSize(1)))
+                .andExpect(model().attribute("nameList", hasItem(
+                                allOf(
+                                        hasProperty("id", is(1L)),
+                                        hasProperty("firstName", is("Jhon"))
+                                )
+                        )
+                ))
+//                .andDo(MockMvcResultHandlers.print())
+        ;
+    }
+
+
 }
