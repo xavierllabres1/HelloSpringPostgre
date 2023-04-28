@@ -2,7 +2,6 @@ package com.world.hello.integration;
 
 import com.world.hello.controllers.NameController;
 import com.world.hello.models.Name;
-import com.world.hello.repository.NameRepository;
 import com.world.hello.services.NameService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -43,7 +42,6 @@ public class NameControllerIntegrationTest {
 
         given(nameService.findAll()).willReturn(nameList);
 
-        System.out.println(model().attributeExists().toString());
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("nameList"))
