@@ -98,7 +98,7 @@ class NameServiceTest {
     @Test
     @DisplayName("Service - Save")
     void save() {
-        NameView nameView = new NameView.Builder().setId(1L).setFirstName("Jhon").build();
+        NameView nameView = new NameView.Builder().setId(1).setFirstName("Jhon").build();
         nameService.save(nameView);
 
         //Mockito
@@ -108,7 +108,7 @@ class NameServiceTest {
     @Test
     @DisplayName("Service - Delete")
     void delete() {
-        NameView nameView = new NameView.Builder().setId(1L).setFirstName("Jhon").build();
+        NameView nameView = new NameView.Builder().setId(1).setFirstName("Jhon").build();
         nameService.delete(nameView);
 
         //Mockito

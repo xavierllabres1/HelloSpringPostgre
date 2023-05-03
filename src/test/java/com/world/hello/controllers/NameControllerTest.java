@@ -77,7 +77,7 @@ class NameControllerTest {
     @DisplayName("Controller - GET - Edit Name Form")
     void editNameForm() {
         NameView nameView = new NameView.Builder()
-                .setId(1L)
+                .setId(1)
                 .setFirstName("Jhon")
                 .build();
         when(nameService.findById(1L)).thenReturn(nameView);

@@ -42,7 +42,7 @@ public class NameControllerIntegrationTest {
     @DisplayName("Integration - FindAll")
     public void testFindAll() throws Exception {
         List<NameView> names = new ArrayList<>();
-        NameView nameView = new NameView.Builder().setId(1L).setFirstName("Jhon").build();
+        NameView nameView = new NameView.Builder().setId(1).setFirstName("Jhon").build();
         names.add(nameView);
 
         given(nameService.findAll()).willReturn(names);
@@ -54,7 +54,7 @@ public class NameControllerIntegrationTest {
                 .andExpect(model().attribute("nameList", hasSize(1)))
                 .andExpect(model().attribute("nameList", hasItem(
                         allOf(
-                                hasProperty("id", is(1L)),
+                                hasProperty("id", is(1)),
                                 hasProperty("firstName", is("Jhon"))
                             )
                         )
@@ -71,13 +71,13 @@ public class NameControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("form"))
                 .andExpect(model().attributeExists("nameForm"))
-                .andExpect(model().attribute("nameForm", hasProperty("id", is(0L))));
+                .andExpect(model().attribute("nameForm", hasProperty("id", is(0))));
     }
 
     @Test
     @DisplayName("Integration - Find By Id")
     public void testFindById() throws Exception {
-        Long id = 1L;
+        Integer id = 1;
         NameView nameView = new NameView.Builder().setId(id).setFirstName("Jhon").build();
 
         given(nameService.findById(1L)).willReturn(nameView);

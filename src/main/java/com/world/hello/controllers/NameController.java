@@ -27,7 +27,7 @@ public class NameController {
 
     @GetMapping("/new")
     public String newNameForm(Model model){
-        model.addAttribute("nameForm", new NameView.Builder().setId(0L).build());
+        model.addAttribute("nameForm", new NameView.Builder().setId(0).build());
         return "form";
     }
 
