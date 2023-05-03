@@ -20,11 +20,6 @@ public final class Name {
         this.firstName = builder.firstName;
     }
 
-    public Name(Long id, String firstName) {
-        this.id = id;
-        this.firstName = firstName;
-    }
-
     public Long getId() {
         return id;
     }

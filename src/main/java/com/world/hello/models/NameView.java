@@ -15,10 +15,6 @@ public class NameView {
         this.firstName = builder.firstName;
     }
 
-    public NameView(Long id, String firstName) {
-        this.id = id;
-        this.firstName = firstName;
-    }
 
     public Long getId() {
         return id;
