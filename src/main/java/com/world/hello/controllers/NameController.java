@@ -1,6 +1,6 @@
 package com.world.hello.controllers;
 
-import com.world.hello.models.Name;
+import com.world.hello.models.NameView;
 import com.world.hello.services.NameService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,22 +26,22 @@ public class NameController {
 
     @GetMapping("/new")
     public String newNameForm(Model model){
-        model.addAttribute("nameForm", new Name.Builder().setId(0L).build());
+        model.addAttribute("nameForm", new NameView.Builder().setId(0L).build());
         return "form";
     }
 
     @PostMapping("/new/submit")
-    public String newNameSubmit(@ModelAttribute("nameForm") Name.Builder builder){
-        Name name = builder.build();
-        nameService.save(name);
+    public String newNameSubmit(@ModelAttribute("nameForm") NameView.Builder builder){
+        NameView nameView = builder.build();
+        nameService.save(nameView);
         return"redirect:/";
     }
 
     @GetMapping("/edit/{id}")
     public String editNameForm(@PathVariable Long id, Model model){
-        Name name = nameService.findById(id);       // Aquí no hi ha builder???
-        if(name != null){
-            model.addAttribute("nameForm", name);
+        NameView nameView = nameService.findById(id);       // Aquí no hi ha builder???
+        if(nameView != null){
+            model.addAttribute("nameForm", nameView);
             return "form";
         } else {
             return "redirect:/new";
@@ -49,16 +49,16 @@ public class NameController {
     }
 
     @PostMapping("/edit/submit")
-    public String editNameSubmit(@ModelAttribute("nameForm") Name.Builder builder){
-        Name name = builder.build();
-        nameService.save(name);
+    public String editNameSubmit(@ModelAttribute("nameForm") NameView.Builder builder){
+        NameView nameView = builder.build();
+        nameService.save(nameView);
         return "redirect:/";
     }
 
     @PostMapping("/edit/delete")
-    public String editNameDelete(@ModelAttribute("nameForm") Name.Builder builder){
-        Name name = builder.build();
-        nameService.delete(name);
+    public String editNameDelete(@ModelAttribute("nameForm") NameView.Builder builder){
+        NameView nameView = builder.build();
+        nameService.delete(nameView);
         return "redirect:/";
     }
 
