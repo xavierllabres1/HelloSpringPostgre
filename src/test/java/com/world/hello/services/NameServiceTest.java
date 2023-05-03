@@ -1,6 +1,7 @@
 package com.world.hello.services;
 
 import com.world.hello.models.Name;
+import com.world.hello.models.NameView;
 import com.world.hello.repository.NameRepository;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -35,7 +36,7 @@ class NameServiceTest {
     @DisplayName("Service - Find All Not EmptyList")
     void findAllNotEmpty() {
         when(nameRepository.findAll()).thenReturn(List.of(new Name.Builder().setId(1L).setFirstName("Jhon").build()));
-        List<Name> names = nameService.findAll();
+        List<NameView> names = nameService.findAll();
 
         //JUnit
         assertNotNull(names);
@@ -48,7 +49,7 @@ class NameServiceTest {
     @DisplayName("Service - Find All EmptyList")
     void findAllEmpty() {
         when(nameRepository.findAll()).thenReturn(List.of());
-        List<Name> names = nameService.findAll();
+        List<NameView> names = nameService.findAll();
 
         //JUnit
         assertNotNull(names);
@@ -61,7 +62,7 @@ class NameServiceTest {
     @DisplayName("Service - Find All Null")
     void findAllNull() {
         when(nameRepository.findAll()).thenReturn(null);
-        List<Name> names = nameService.findAll();
+        List<NameView> names = nameService.findAll();
 
         //JUnit
         assertNull(names);
@@ -73,11 +74,11 @@ class NameServiceTest {
     @DisplayName("Service - Find by Id Found")
     void findByIDFound() {
         when(nameRepository.findById(anyLong())).thenReturn(Optional.of(new Name.Builder().setId(1L).setFirstName("Jhon").build()));
-        Name name = nameService.findById(1L);
+        NameView nameView = nameService.findById(1L);
 
         //JUnit
-        assertNotNull(name);
-        assertEquals("Jhon", name.getFirstName());
+        assertNotNull(nameView);
+        assertEquals("Jhon", nameView.getFirstName());
         //Mockito
         verify(nameRepository, times(1)).findById(1L);
     }
@@ -86,10 +87,10 @@ class NameServiceTest {
     @DisplayName("Service - Find by Id Not Found")
     void findByIDNotFound() {
         when(nameRepository.findById(anyLong())).thenReturn(Optional.ofNullable(null));
-        Name name = nameService.findById(anyLong());
+        NameView nameView = nameService.findById(anyLong());
 
         //JUnit
-        assertNull(name);
+        assertNull(nameView);
         //Mockito
         verify(nameRepository, times(1)).findById(anyLong());
     }
@@ -97,20 +98,21 @@ class NameServiceTest {
     @Test
     @DisplayName("Service - Save")
     void save() {
-        Name name = new Name.Builder().setId(1L).setFirstName("Jhon").build();
-        nameService.save(name);
+        NameView nameView = new NameView.Builder().setId(1L).setFirstName("Jhon").build();
+        nameService.save(nameView);
 
         //Mockito
-        verify(nameRepository, times(1)).save(name);
+        verify(nameRepository, times(1)).save(any(Name.class));
     }
+
     @Test
     @DisplayName("Service - Delete")
     void delete() {
-        Name name = new Name.Builder().setId(1L).setFirstName("Jhon").build();
-        nameService.delete(name);
+        NameView nameView = new NameView.Builder().setId(1L).setFirstName("Jhon").build();
+        nameService.delete(nameView);
 
         //Mockito
-        verify(nameRepository, times(1)).delete(name);
+        verify(nameRepository, times(1)).delete(any(Name.class));
     }
 
 }

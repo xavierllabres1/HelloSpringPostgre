@@ -2,6 +2,7 @@ package com.world.hello.integration;
 
 import com.world.hello.controllers.NameController;
 import com.world.hello.models.Name;
+import com.world.hello.models.NameView;
 import com.world.hello.services.NameService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,9 +41,9 @@ public class NameControllerIntegrationTest {
     @Test
     @DisplayName("Integration - FindAll")
     public void testFindAll() throws Exception {
-        List<Name> names = new ArrayList<>();
-        Name name = new Name.Builder().setId(1L).setFirstName("Jhon").build();
-        names.add(name);
+        List<NameView> names = new ArrayList<>();
+        NameView nameView = new NameView.Builder().setId(1L).setFirstName("Jhon").build();
+        names.add(nameView);
 
         given(nameService.findAll()).willReturn(names);
 
@@ -77,14 +78,14 @@ public class NameControllerIntegrationTest {
     @DisplayName("Integration - Find By Id")
     public void testFindById() throws Exception {
         Long id = 1L;
-        Name name = new Name.Builder().setId(id).setFirstName("Jhon").build();
+        NameView nameView = new NameView.Builder().setId(id).setFirstName("Jhon").build();
 
-        given(nameService.findById(1L)).willReturn(name);
+        given(nameService.findById(1L)).willReturn(nameView);
 
         mockMvc.perform(get("/edit/{id}", id))
                 .andExpect(status().isOk())
                 .andExpect(view().name("form"))
-                .andExpect(model().attribute("nameForm", name))
+                .andExpect(model().attribute("nameForm", nameView))
 //                .andDo(MockMvcResultHandlers.print())
         ;
     }
