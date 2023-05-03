@@ -1,5 +1,6 @@
 package com.world.hello.controllers;
 
+import com.world.hello.models.Name;
 import com.world.hello.models.NameView;
 import com.world.hello.services.NameService;
 import org.springframework.stereotype.Controller;
@@ -31,15 +32,17 @@ public class NameController {
     }
 
     @PostMapping("/new/submit")
-    public String newNameSubmit(@ModelAttribute("nameForm") NameView.Builder builder){
-        NameView nameView = builder.build();
+    public String newNameSubmit(@ModelAttribute("nameForm") Name.Builder builder){
+//        NameView nameView = builder.build();
+        Name nameView = builder.build();
         nameService.save(nameView);
         return"redirect:/";
     }
 
     @GetMapping("/edit/{id}")
     public String editNameForm(@PathVariable Long id, Model model){
-        NameView nameView = nameService.findById(id);       // Aquí no hi ha builder???
+        //NameView nameView = nameService.findById(id);       // Aquí no hi ha builder???
+        Name nameView = nameService.findById(id);       // Aquí no hi ha builder???
         if(nameView != null){
             model.addAttribute("nameForm", nameView);
             return "form";
@@ -49,15 +52,17 @@ public class NameController {
     }
 
     @PostMapping("/edit/submit")
-    public String editNameSubmit(@ModelAttribute("nameForm") NameView.Builder builder){
-        NameView nameView = builder.build();
+    public String editNameSubmit(@ModelAttribute("nameForm") Name.Builder builder){
+        Name nameView = builder.build();
+        //NameView nameView = builder.build();
         nameService.save(nameView);
         return "redirect:/";
     }
 
     @PostMapping("/edit/delete")
-    public String editNameDelete(@ModelAttribute("nameForm") NameView.Builder builder){
-        NameView nameView = builder.build();
+    public String editNameDelete(@ModelAttribute("nameForm") Name.Builder builder){
+        Name nameView = builder.build();
+        //NameView nameView = builder.build();
         nameService.delete(nameView);
         return "redirect:/";
     }
