@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.core.convert.ConversionService;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,8 @@ class NameServiceTest {
     // Dependencies
     @Mock
     NameRepository nameRepository;
+    @Mock
+    ConversionService conversionService;
 
     // SUT
     @InjectMocks
@@ -106,7 +109,11 @@ class NameServiceTest {
     @Test
     @DisplayName("Service - Save")
     void save() {
-        NameView nameView = NameView.builder().id(1).firstName("Jhon").build();
+        NameView nameView = NameView.builder()
+                .id(1)
+                .firstName("Jhon")
+                .lastName("Smith")
+                .build();
         nameService.save(nameView);
 
         //Mockito

@@ -5,6 +5,9 @@ import com.world.hello.models.NameView;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 @Component
 public class NameViewConverter implements Converter<Name, NameView> {
 
@@ -23,11 +26,18 @@ public class NameViewConverter implements Converter<Name, NameView> {
                 lastName = lastName + fullName[i] + " ";
             }
         }
+//        final String firstName = Stream.of(name.getFirstName().split(" "))
+//                .findFirst()
+//                .orElse("");
+//
+//        final String lastName = Stream.of(name.getFirstName().split(" "))
+//                .skip(1)
+//                .collect(Collectors.joining(" "));
 
         return NameView.builder()
                 .id(name.getId().intValue())
                 .firstName(firstName)
-                .lastName(lastName.trim())
+                .lastName(lastName)
                 .build();
     }
 }
