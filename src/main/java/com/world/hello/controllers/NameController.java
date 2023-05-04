@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class NameController {
@@ -27,14 +28,13 @@ public class NameController {
 
     @GetMapping("/new")
     public String newNameForm(Model model){
-        model.addAttribute("nameForm", new NameView.Builder().setId(0).build());
+        model.addAttribute("nameForm", NameView.builder().id(0).build());
         return "form";
     }
 
     @PostMapping("/new/submit")
-    public String newNameSubmit(@ModelAttribute("nameForm") NameView.Builder builder){
-        NameView nameView = builder.build();
-        nameService.save(nameView);
+    public String newNameSubmit(@RequestBody final NameView nameForm){
+        nameService.save(nameForm);
         return"redirect:/";
     }
 
@@ -50,16 +50,14 @@ public class NameController {
     }
 
     @PostMapping("/edit/submit")
-    public String editNameSubmit(@ModelAttribute("nameForm") NameView.Builder builder){
-        NameView nameView = builder.build();
+    public String editNameSubmit(@RequestBody NameView nameView){
         nameService.save(nameView);
         return "redirect:/";
     }
 
     @PostMapping("/edit/delete")
-    public String editNameDelete(@ModelAttribute("nameForm") NameView.Builder builder){
-        NameView nameView = builder.build();
-        nameService.delete(nameView);
+    public String editNameDelete(@ModelAttribute("nameForm") NameView builder){
+        nameService.delete(builder);
         return "redirect:/";
     }
 

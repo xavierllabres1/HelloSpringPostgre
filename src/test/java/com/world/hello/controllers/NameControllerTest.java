@@ -1,8 +1,6 @@
 package com.world.hello.controllers;
 
-import com.world.hello.models.Name;
 import com.world.hello.models.NameView;
-import com.world.hello.repository.NameRepository;
 import com.world.hello.services.NameService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,12 +10,15 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 class NameControllerTest {
 
@@ -64,10 +65,10 @@ class NameControllerTest {
     @Test
     @DisplayName("Controller - POST - New Name Submit")
     void newNameSubmit() {
-        NameView.Builder nameBuilder = new NameView.Builder();
+        NameView nameView = NameView.builder().build();
 
         doNothing().when(nameService).save(any(NameView.class));
-        String view = nameController.newNameSubmit(nameBuilder);
+        String view = nameController.newNameSubmit(nameView);
 
         //JUnit
         assertEquals("redirect:/", view);
@@ -78,9 +79,9 @@ class NameControllerTest {
     @Test
     @DisplayName("Controller - GET - Edit Name Form")
     void editNameForm() {
-        NameView nameView = new NameView.Builder()
-                .setId(1)
-                .setFirstName("Jhon")
+        NameView nameView = NameView.builder()
+                .id(1)
+                .firstName("Jhon")
                 .build();
         when(nameService.findById(1L)).thenReturn(nameView);
         String view = nameController.editNameForm(1L,model);
@@ -105,20 +106,22 @@ class NameControllerTest {
     @Test
     @DisplayName("Controller - POST - Edit Name Submit")
     void editNameSubmit() {
-        NameView.Builder nameViewBuilder = new NameView.Builder();
-        String view = nameController.editNameSubmit(nameViewBuilder);
+        final NameView nameView = NameView.builder()
+                .firstName("Devon")
+                .lastName("Xavi")
+                .build();
+        final String view = nameController.editNameSubmit(nameView);
 
         //JUnit
         assertEquals("redirect:/", view);
-        assertNotNull(nameViewBuilder);
         //Mockito
-        verify(nameService, times(1)).save(any(NameView.class));
+        verify(nameService, times(1)).save(nameView);
     }
 
     @Test
     @DisplayName("Controller - POST - Edit Name Delete")
     void editNameDelete() {
-        NameView.Builder nameViewBuilder = new NameView.Builder();
+        NameView nameViewBuilder = NameView.builder().build();
         String view = nameController.editNameDelete(nameViewBuilder);
 
         //JUnit

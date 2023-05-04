@@ -94,7 +94,7 @@ class NameServiceTest {
     @Test
     @DisplayName("Service - Find by Id Not Found")
     void findByIDNotFound() {
-        when(nameRepository.findById(anyLong())).thenReturn(Optional.ofNullable(null));
+        when(nameRepository.findById(anyLong())).thenReturn(Optional.empty());
         NameView nameView = nameService.findById(anyLong());
 
         //JUnit
@@ -106,7 +106,7 @@ class NameServiceTest {
     @Test
     @DisplayName("Service - Save")
     void save() {
-        NameView nameView = new NameView.Builder().setId(1).setFirstName("Jhon").build();
+        NameView nameView = NameView.builder().id(1).firstName("Jhon").build();
         nameService.save(nameView);
 
         //Mockito
@@ -116,7 +116,7 @@ class NameServiceTest {
     @Test
     @DisplayName("Service - Delete")
     void delete() {
-        NameView nameView = new NameView.Builder().setId(1).setFirstName("Jhon").build();
+        NameView nameView = NameView.builder().id(1).firstName("Jhon").build();
         nameService.delete(nameView);
 
         //Mockito

@@ -1,5 +1,6 @@
 package com.world.hello.integration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.world.hello.controllers.NameController;
 import com.world.hello.models.Name;
 import com.world.hello.models.NameView;
@@ -10,22 +11,27 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.*;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import static org.hamcrest.Matchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = NameController.class)
@@ -42,7 +48,7 @@ public class NameControllerIntegrationTest {
     @DisplayName("Integration - FindAll")
     public void testFindAll() throws Exception {
         List<NameView> names = new ArrayList<>();
-        NameView nameView = new NameView.Builder().setId(1).setFirstName("Jhon").build();
+        NameView nameView = NameView.builder().id(1).firstName("Jhon").build();
         names.add(nameView);
 
         given(nameService.findAll()).willReturn(names);
@@ -91,7 +97,7 @@ public class NameControllerIntegrationTest {
     @DisplayName("Integration - Find By Id")
     public void testFindById() throws Exception {
         Integer id = 1;
-        NameView nameView = new NameView.Builder().setId(id).setFirstName("Jhon").build();
+        NameView nameView = NameView.builder().id(id).firstName("Jhon").build();
 
         given(nameService.findById(1L)).willReturn(nameView);
 
@@ -142,18 +148,15 @@ public class NameControllerIntegrationTest {
     @DisplayName("Integration - Edit Name Submit")
     void testEditNameSubmit() throws Exception {
 
-        Name name = new Name.Builder()
-                .setId(1L)
-                .setFirstName("John")
+        NameView name = NameView.builder()
+                .id(1)
+                .firstName("John")
                 .build();
 
-        MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
-        formData.add("id", name.getId().toString());
-        formData.add("firstName", name.getFirstName());
-
         mockMvc.perform(post("/edit/submit")
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .params(formData))
+                        .content(new ObjectMapper().writeValueAsString(name))
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
                 .andExpect(status().isFound())
                 .andExpect(view().name("redirect:/"))
         //                .andDo(MockMvcResultHandlers.print())

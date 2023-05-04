@@ -38,10 +38,10 @@ class NameConverterTest {
         String firstName = "Jhon";
         String lastName = "Smith";
 
-        NameView nameView = new NameView.Builder()
-                .setId(id)
-                .setFirstName(firstName)
-                .setLastName(lastName)
+        NameView nameView = NameView.builder()
+                .id(id)
+                .firstName(firstName)
+                .lastName(lastName)
                 .build();
 
         Name name = NameConverter.converterToName(nameView);
