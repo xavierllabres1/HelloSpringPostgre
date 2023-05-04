@@ -126,20 +126,17 @@ public class NameControllerIntegrationTest {
     @DisplayName("Integration - New Name Submit")
     void testNewNameSubmit() throws Exception {
 
-        Name name = new Name.Builder()
-                .setId(1L)
-                .setFirstName("John")
+        Name name = Name.builder()
+                .id(1L)
+                .firstName("John")
                 .build();
 
-        MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
-        formData.add("id", name.getId().toString());
-        formData.add("firstName", name.getFirstName());
-
         mockMvc.perform(post("/new/submit")
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .params(formData))
-                        .andExpect(status().isFound())
-                        .andExpect(view().name("redirect:/"))
+                        .content(new ObjectMapper().writeValueAsString(name))
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isFound())
+                .andExpect(view().name("redirect:/"))
         //                .andDo(MockMvcResultHandlers.print())
         ;
     }
@@ -167,18 +164,16 @@ public class NameControllerIntegrationTest {
     @DisplayName("Integration - Delete Name Submit")
     void testDeleteNameSubmit() throws Exception {
 
-        Name name = new Name.Builder()
-                .setId(1L)
-                .setFirstName("John")
+        Name name = Name.builder()
+                .id(1L)
+                .firstName("John")
                 .build();
 
-        MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
-        formData.add("id", name.getId().toString());
-        formData.add("firstName", name.getFirstName());
 
         mockMvc.perform(post("/edit/delete")
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .params(formData))
+                        .content(new ObjectMapper().writeValueAsString(name))
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
                 .andExpect(status().isFound())
                 .andExpect(view().name("redirect:/"))
         //                .andDo(MockMvcResultHandlers.print())

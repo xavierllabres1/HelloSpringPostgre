@@ -11,9 +11,9 @@ public class NameTest {
     void testConstructor() {
         Long id = 1L;
         String firstName = "John";
-        Name name = new Name.Builder()
-                .setId(id)
-                .setFirstName(firstName)
+        Name name = Name.builder()
+                .id(id)
+                .firstName(firstName)
                 .build();
         assertEquals(id, name.getId());
         assertEquals(firstName, name.getFirstName());
@@ -24,9 +24,9 @@ public class NameTest {
     void testBuilder() {
         Long id = 1L;
         String firstName = "John";
-        Name.Builder builder = new Name.Builder()
-                .setId(id)
-                .setFirstName(firstName);
+        Name.NameBuilder builder = Name.builder()
+                .id(id)
+                .firstName(firstName);
         Name name1 = builder.build();
         Name name2 = builder.build();
         assertNotSame(name1, name2);

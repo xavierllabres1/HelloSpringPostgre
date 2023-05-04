@@ -56,8 +56,8 @@ public class NameController {
     }
 
     @PostMapping("/edit/delete")
-    public String editNameDelete(@ModelAttribute("nameForm") NameView builder){
-        nameService.delete(builder);
+    public String editNameDelete(@RequestBody NameView nameView){
+        nameService.delete(nameView);
         return "redirect:/";
     }
 

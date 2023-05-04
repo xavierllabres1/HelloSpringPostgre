@@ -43,7 +43,7 @@ class NameServiceTest {
     @Test
     @DisplayName("Service - Find All Not EmptyList")
     void findAllNotEmpty() {
-        when(nameRepository.findAll()).thenReturn(List.of(new Name.Builder().setId(1L).setFirstName("Jhon").build()));
+        when(nameRepository.findAll()).thenReturn(List.of(Name.builder().id(1L).firstName("Jhon").build()));
         List<NameView> names = nameService.findAll();
 
         //JUnit
@@ -81,7 +81,7 @@ class NameServiceTest {
     @Test
     @DisplayName("Service - Find by Id Found")
     void findByIDFound() {
-        when(nameRepository.findById(anyLong())).thenReturn(Optional.of(new Name.Builder().setId(1L).setFirstName("Jhon").build()));
+        when(nameRepository.findById(anyLong())).thenReturn(Optional.of(Name.builder().id(1L).firstName("Jhon").build()));
         NameView nameView = nameService.findById(1L);
 
         //JUnit

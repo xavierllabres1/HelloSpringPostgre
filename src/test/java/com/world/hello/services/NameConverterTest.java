@@ -5,10 +5,14 @@ import com.world.hello.models.Name;
 import com.world.hello.models.NameView;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.springframework.core.convert.ConversionService;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class NameConverterTest {
+
+    private ConversionService conversionService;
 
     @Test
     @DisplayName("Converter recibe un objeto tipo Name y lo pasa a NameView")
@@ -23,7 +27,7 @@ class NameConverterTest {
                 .firstName(firstName + " " + lastName)
                 .build();
 
-        NameView nameView = NameConverter.converterToNameView(name);
+        NameView nameView = conversionService.convert(name, NameView.class);
 
         assertEquals(name.getId().toString(), nameView.getId().toString());
         assertEquals(name.getFirstName(),
@@ -44,7 +48,7 @@ class NameConverterTest {
                 .lastName(lastName)
                 .build();
 
-        Name name = NameConverter.converterToName(nameView);
+        Name name = conversionService.convert(nameView, Name.class);
 
         assertEquals(name.getId().toString(), nameView.getId().toString());
         assertEquals(name.getFirstName(), (nameView.getFirstName() + " " + nameView.getLastName()).trim());
