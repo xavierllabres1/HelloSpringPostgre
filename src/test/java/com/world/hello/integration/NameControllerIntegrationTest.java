@@ -64,6 +64,19 @@ public class NameControllerIntegrationTest {
     }
 
     @Test
+    @DisplayName("Integration - FindAllNothing")
+    public void testFindAllNothing() throws Exception {
+        given(nameService.findAll()).willReturn(null);
+
+        mockMvc.perform(get("/"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("index"))
+                .andExpect(model().attributeDoesNotExist("nameList"))
+//                .andDo(MockMvcResultHandlers.print())
+        ;
+    }
+
+    @Test
     @DisplayName("Integration - New")
     public void testNewNameForm() throws Exception {
 

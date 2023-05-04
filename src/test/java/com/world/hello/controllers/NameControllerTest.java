@@ -7,6 +7,7 @@ import com.world.hello.services.NameService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
@@ -20,12 +21,13 @@ import static org.mockito.Mockito.*;
 
 class NameControllerTest {
 
-    // SUT
-    NameController nameController;
-
     // Dependencies
     @Mock
     NameService nameService;
+
+    // SUT
+    @InjectMocks
+    NameController nameController;
 
     @Mock
     Model model;
@@ -33,8 +35,8 @@ class NameControllerTest {
     @BeforeEach
     void setUp(){
         MockitoAnnotations.openMocks(this);
-        nameController = new NameController(nameService);
     }
+
 
     @Test
     @DisplayName("Controller - GET - Find All Names")

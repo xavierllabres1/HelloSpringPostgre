@@ -10,9 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class NameConverterTest {
 
-
-    NameConverter nameConverter;
-
     @Test
     @DisplayName("Converter recibe un objeto tipo Name y lo pasa a NameView")
     void testConverterNameToNameView(){

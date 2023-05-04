@@ -7,6 +7,7 @@ import com.world.hello.repository.NameRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -18,19 +19,26 @@ import static org.mockito.Mockito.*;
 
 class NameServiceTest {
 
-    // SUT
-    NameService nameService;
-
     // Dependencies
     @Mock
     NameRepository nameRepository;
+
+    // SUT
+    @InjectMocks
+    NameService nameService;
 
     // Instanciar el Mock
     @BeforeEach
     void setUp(){
         MockitoAnnotations.openMocks(this);
-        nameService = new NameService(nameRepository);
     }
+
+//    @BeforeEach
+//    void setUpByConstructor(){
+//        nameRepository = mock(NameRepository.class);
+//        nameService = new NameService(nameRepository);
+//    }
+
 
     @Test
     @DisplayName("Service - Find All Not EmptyList")
