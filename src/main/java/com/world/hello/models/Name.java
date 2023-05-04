@@ -1,54 +1,32 @@
 package com.world.hello.models;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import lombok.*;
+
 import javax.persistence.*;
 
 @Entity
+@Builder(setterPrefix = "")
+@Value
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@JsonDeserialize(builder = Name.NameBuilder.class)
 @Table(name = "names", schema = "public")
-public final class Name {
+public class Name {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @Column(name = "firstname")
-    private String firstName;
+    String firstName;
 
-    public Name(){}
-
-    private Name(Builder builder) {
-        this.id = builder.id;
-        this.firstName = builder.firstName;
+    public Name(){
+        id = 1L;
+        firstName = "";
     }
 
-    public Long getId() {
-        return id;
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class NameBuilder {
     }
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public static class Builder {
-
-        private Long id;
-        private String firstName;
-
-        public Builder(){}
-
-        public Builder setId(Long id){
-            this.id = id;
-            return this;
-        }
-
-        public Builder setFirstName(String firstName){
-            this.firstName = firstName;
-            return this;
-        }
-
-        public Name build(){
-            return new Name(this);
-        }
-
-    }
-
-
 }

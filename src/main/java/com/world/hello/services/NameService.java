@@ -59,11 +59,11 @@ public class NameService {
     }
 
     public void save(NameView nameView){
-        repository.save(NameConverter.converterToName(nameView));
+        repository.save(this.conversionService.convert(nameView, Name.class));
     }
 
     public void delete(NameView nameView){
-        repository.delete(NameConverter.converterToName(nameView));
+        repository.delete(conversionService.convert(nameView, Name.class));
     }
 
 }

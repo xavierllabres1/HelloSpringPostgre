@@ -19,6 +19,5 @@ public class NameView {
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class NameViewBuilder {
-
     }
 }

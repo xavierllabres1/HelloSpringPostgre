@@ -7,28 +7,14 @@ import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class NameConverter implements Converter<Name, NameView> {
+public class NameConverter implements Converter<NameView, Name> {
 
     @Override
-    public NameView convert(Name name) {
+    public Name convert(NameView nameView) {
 
-        String [] fullName = name.getFirstName().split(" ");
-        String firstName = "";
-        String lastName = "";
-
-        if (fullName.length == 1){
-            firstName = fullName[0];
-        } else {
-            firstName = fullName[0];
-            for (int i = 1; i < fullName.length; i++){
-                lastName = lastName + fullName[i] + " ";
-            }
-        }
-
-        return NameView.builder()
-                .id(name.getId().intValue())
-                .firstName(firstName)
-                .lastName(lastName.trim())
+        return Name.builder()
+                .id(nameView.getId().longValue())
+                .firstName((nameView.getFirstName() + " " + nameView.getLastName()).trim())
                 .build();
     }
 }
