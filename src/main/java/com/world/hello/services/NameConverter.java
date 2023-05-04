@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class NameConverter implements Converter<NameView, Name> {
 
     @Override
-    public Name convert(NameView nameView) {
+    public Name convert(final NameView nameView) {
 
         return Name.builder()
                 .id(nameView.getId().longValue())

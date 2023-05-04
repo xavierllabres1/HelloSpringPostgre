@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class NameViewConverter implements Converter<Name, NameView> {
 
     @Override
-    public NameView convert(Name name) {
+    public NameView convert(final Name name) {
 
         String [] fullName = name.getFirstName().split(" ");
         String firstName = "";

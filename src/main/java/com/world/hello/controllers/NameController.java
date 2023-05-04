@@ -39,8 +39,8 @@ public class NameController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editNameForm(@PathVariable Long id, Model model){
-        NameView nameView = nameService.findById(id);       // Aquí no hi ha builder???
+    public String editNameForm(@PathVariable final Long id, Model model){
+        NameView nameView = nameService.findById(id);
         if(nameView != null){
             model.addAttribute("nameForm", nameView);
             return "form";
@@ -50,13 +50,13 @@ public class NameController {
     }
 
     @PostMapping("/edit/submit")
-    public String editNameSubmit(@RequestBody NameView nameView){
+    public String editNameSubmit(@RequestBody final NameView nameView){
         nameService.save(nameView);
         return "redirect:/";
     }
 
     @PostMapping("/edit/delete")
-    public String editNameDelete(@RequestBody NameView nameView){
+    public String editNameDelete(@RequestBody final NameView nameView){
         nameService.delete(nameView);
         return "redirect:/";
     }

@@ -25,9 +25,9 @@ public class NameService {
         this.repository = repository;
     }
 
-    public NameView findById(Long id){
+    public NameView findById(final Long id){
 
-        Optional<Name> result = repository.findById(id);
+        final Optional<Name> result = repository.findById(id);
 
         if (result.isPresent()){
             return this.conversionService.convert(result.get(), NameView.class);
@@ -39,7 +39,7 @@ public class NameService {
 
     public List<NameView> findAll(){
 
-        List<Name> names = repository.findAll() ;
+        final List<Name> names = repository.findAll() ;
 
         return Stream.ofNullable(names)
                 .map(name -> this.conversionService.convert(name, NameView.class))
@@ -58,11 +58,11 @@ public class NameService {
         }*/
     }
 
-    public void save(NameView nameView){
+    public void save(final NameView nameView){
         repository.save(this.conversionService.convert(nameView, Name.class));
     }
 
-    public void delete(NameView nameView){
+    public void delete(final NameView nameView){
         repository.delete(conversionService.convert(nameView, Name.class));
     }
 
