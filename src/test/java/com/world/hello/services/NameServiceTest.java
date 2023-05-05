@@ -84,12 +84,15 @@ class NameServiceTest {
     @Test
     @DisplayName("Service - Find by Id Found")
     void findByIDFound() {
-        when(nameRepository.findById(1L)).thenReturn(Optional.of(Name.builder().id(1L).firstName("Jhon").build()));
-        NameView nameView = nameService.findById(1L);
+        Optional<Name> name = Optional.of(Name.builder().id(1L).firstName("Jhon").build());
+        NameView nameView = NameView.builder().id(1).firstName("Jhon").build();
+        when(nameRepository.findById(1L)).thenReturn(name);
+        when(conversionService.convert(any(Name.class), (Class<NameView>)any())).thenReturn(nameView);
+        NameView nameViewResult = nameService.findById(1L);
 
         //JUnit
-        assertNotNull(nameView);
-        assertEquals("Jhon", nameView.getFirstName());
+        assertNotNull(nameViewResult);
+        assertEquals(nameView.getFirstName(), nameViewResult.getFirstName());
         //Mockito
         verify(nameRepository, times(1)).findById(1L);
     }
