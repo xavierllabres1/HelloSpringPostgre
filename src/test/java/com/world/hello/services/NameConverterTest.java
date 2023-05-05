@@ -13,7 +13,7 @@ class NameConverterTest {
 
     @Test
     @DisplayName("Service - NameView to Name ")
-    void testConverterToName(){
+    void testConverterNameViewToName(){
 
         Integer id = 1;
         String firstName = "Jhon";
@@ -28,13 +28,12 @@ class NameConverterTest {
         Name name = nameConverter.convert(nameView);
 
         assertEquals(name.getId().toString(), nameView.getId().toString());
-        assertEquals(name.getFirstName(),
-                (nameView.getFirstName() + " " + nameView.getLastName()).trim());
+        assertEquals(name.getFirstName(), (nameView.getFirstName() + " " + nameView.getLastName()).trim());
     }
 
     @Test
-    @DisplayName("Service - Not lastName NameView to Name ")
-    void testConverterToNameNotLastName(){
+    @DisplayName("Service - NameView to Name No LastName")
+    void testConverterNameViewToNameNoLastName(){
 
         Integer id = 1;
         String firstName = "Jhon";
@@ -53,8 +52,8 @@ class NameConverterTest {
                 (nameView.getFirstName() + " " + nameView.getLastName()).trim());
     }
     @Test
-    @DisplayName("Service - Empty NameView to Name")
-    void testConverterEmptyToName(){
+    @DisplayName("Service - NameView to Name Empty")
+    void testConverterNameViewToNameEmpty(){
 
         Integer id = 0;
         String firstName = "";

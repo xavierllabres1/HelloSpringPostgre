@@ -6,6 +6,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.stereotype.Component;
 
+// Source: NameView -> Destination: Name
 @Component
 public class NameConverter implements Converter<NameView, Name> {
 

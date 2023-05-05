@@ -20,7 +20,7 @@ class NameViewConverterTest {
 
         Name name = Name.builder()
                 .id(id)
-                .firstName(firstName + " " + lastName)
+                .firstName((firstName + " " + lastName).trim())
                 .build();
 
         NameView nameView = nameViewConverter.convert(name);
@@ -38,7 +38,7 @@ class NameViewConverterTest {
 
         Name name = Name.builder()
                 .id(id)
-                .firstName(firstName + " " + lastName)
+                .firstName((firstName + " " + lastName).trim())
                 .build();
 
         NameView nameView = nameViewConverter.convert(name);
@@ -56,7 +56,7 @@ class NameViewConverterTest {
 
         Name name = Name.builder()
                 .id(id)
-                .firstName(firstName + " " + lastName)
+                .firstName((firstName + " " + lastName).trim())
                 .build();
 
         NameView nameView = nameViewConverter.convert(name);
