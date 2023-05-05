@@ -43,23 +43,13 @@ public class NameService {
     public List<NameView> findAll(){
 
         final List<Name> names = repository.findAll() ;
+
         List<NameView> nameViewList = Stream.ofNullable(names)
                 .map(name -> this.conversionService.convert(name, NameView.class))
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
         return nameViewList;
 
-
-        /*if (names != null) {
-            List<NameView> namesView = new ArrayList<>();
-
-            for (int i = 0; i < names.size(); i++) {
-                namesView.add(this.conversionService.convert(names.get(i), NameView.class));
-            }
-            return namesView;
-        } else {
-            return  null;
-        }*/
     }
 
     public void save(final NameView nameView){

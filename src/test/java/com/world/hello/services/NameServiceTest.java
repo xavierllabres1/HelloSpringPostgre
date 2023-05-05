@@ -12,8 +12,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.core.convert.ConversionService;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -46,12 +46,17 @@ class NameServiceTest {
     @Test
     @DisplayName("Service - Find All Not EmptyList")
     void findAllNotEmpty() {
-        when(nameRepository.findAll()).thenReturn(List.of(Name.builder().id(1L).firstName("Jhon").build()));
-        List<NameView> names = nameService.findAll();
+        List<Name> nameList = Arrays.asList(Name.builder().id(1L).firstName("Jhon Smith").build());
 
+        List<NameView> nameViewListInstance = Arrays.asList(NameView.builder().id(1).firstName("Jhon").lastName("Smith").build());
+
+        when(nameRepository.findAll()).thenReturn(nameList);
+//        when(conversionService.convert(any(Name.class), (Class<NameView>)any())).thenReturn(nameViewListInstance.get(0));
+
+        List<NameView> nameViewListResult = nameService.findAll();
         //JUnit
-        assertNotNull(names);
-        assertEquals(1, names.size());
+        assertNotNull(nameViewListResult);
+        assertEquals(1, nameViewListResult.size());
         //Mockito
         verify(nameRepository, times(1)).findAll();
     }
