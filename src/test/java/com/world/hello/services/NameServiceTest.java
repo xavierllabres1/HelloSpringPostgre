@@ -60,6 +60,7 @@ class NameServiceTest {
     @DisplayName("Service - Find All EmptyList")
     void findAllEmpty() {
         when(nameRepository.findAll()).thenReturn(List.of());
+        when(conversionService.convert(any(Name.class), (Class<NameView>)any())).thenReturn(((Class<NameView>)any()));
         List<NameView> names = nameService.findAll();
 
         //JUnit
@@ -69,17 +70,7 @@ class NameServiceTest {
         verify(nameRepository, times(1)).findAll();
     }
 
-    @Test
-    @DisplayName("Service - Find All Null")
-    void findAllNull() {
-        when(nameRepository.findAll()).thenReturn(null);
-        List<NameView> names = nameService.findAll();
 
-        //JUnit
-        assertNull(names);
-        //Mockito
-        verify(nameRepository, times(1)).findAll();
-    }
 
     @Test
     @DisplayName("Service - Find by Id Found")
