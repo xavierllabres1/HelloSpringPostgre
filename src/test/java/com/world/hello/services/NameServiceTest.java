@@ -60,7 +60,6 @@ class NameServiceTest {
     @DisplayName("Service - Find All EmptyList")
     void findAllEmpty() {
         when(nameRepository.findAll()).thenReturn(List.of());
-        when(conversionService.convert(any(Name.class), (Class<NameView>)any())).thenReturn(((Class<NameView>)any()));
         List<NameView> names = nameService.findAll();
 
         //JUnit

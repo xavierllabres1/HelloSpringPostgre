@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -42,10 +43,11 @@ public class NameService {
     public List<NameView> findAll(){
 
         final List<Name> names = repository.findAll() ;
-
-        return Stream.ofNullable(names)
+        List<NameView> nameViewList = Stream.ofNullable(names)
                 .map(name -> this.conversionService.convert(name, NameView.class))
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
+        return nameViewList;
 
 
         /*if (names != null) {
