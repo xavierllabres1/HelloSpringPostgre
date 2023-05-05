@@ -30,7 +30,11 @@ public class NameService {
         final Optional<Name> result = repository.findById(id);
 
         if (result.isPresent()){
-            return this.conversionService.convert(result.get(), NameView.class);
+            Name name = result.get();
+            NameViewConverter nameViewConverter = new NameViewConverter();
+            NameView nameView = conversionService.convert(name, NameView.class);
+
+            return nameView;
         } else {
             return null;
         }

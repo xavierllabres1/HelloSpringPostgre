@@ -84,7 +84,7 @@ class NameServiceTest {
     @Test
     @DisplayName("Service - Find by Id Found")
     void findByIDFound() {
-        when(nameRepository.findById(anyLong())).thenReturn(Optional.of(Name.builder().id(1L).firstName("Jhon").build()));
+        when(nameRepository.findById(1L)).thenReturn(Optional.of(Name.builder().id(1L).firstName("Jhon").build()));
         NameView nameView = nameService.findById(1L);
 
         //JUnit
@@ -117,7 +117,7 @@ class NameServiceTest {
         nameService.save(nameView);
 
         //Mockito
-        verify(nameRepository, times(1)).save(any(Name.class));
+        verify(nameRepository, times(1)).save(conversionService.convert(nameView, Name.class));
     }
 
     @Test
@@ -127,7 +127,7 @@ class NameServiceTest {
         nameService.delete(nameView);
 
         //Mockito
-        verify(nameRepository, times(1)).delete(any(Name.class));
+        verify(nameRepository, times(1)).delete(conversionService.convert(nameView, Name.class));
     }
 
 }
