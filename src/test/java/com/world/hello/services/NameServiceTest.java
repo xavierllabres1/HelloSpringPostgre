@@ -51,7 +51,7 @@ class NameServiceTest {
         List<NameView> nameViewListInstance = Arrays.asList(NameView.builder().id(1).firstName("Jhon").lastName("Smith").build());
 
         when(nameRepository.findAll()).thenReturn(nameList);
-//        when(conversionService.convert(any(Name.class), (Class<NameView>)any())).thenReturn(nameViewListInstance.get(0));
+        when(conversionService.convert(any(Name.class), (Class<NameView>)any())).thenReturn(nameViewListInstance.get(0));
 
         List<NameView> nameViewListResult = nameService.findAll();
         //JUnit
