@@ -57,6 +57,7 @@ class NameServiceTest {
         //JUnit
         assertNotNull(nameViewListResult);
         assertEquals(1, nameViewListResult.size());
+        assertEquals(nameList.get(0).getId().toString(), nameViewListResult.get(0).getId().toString());
         //Mockito
         verify(nameRepository, times(1)).findAll();
     }
