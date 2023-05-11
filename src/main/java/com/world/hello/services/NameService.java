@@ -6,10 +6,7 @@ import com.world.hello.repository.NameRepository;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -44,21 +41,20 @@ public class NameService {
 
         final List<Name> names = repository.findAll() ;
 
-//        List<NameView> nameViewList = new ArrayList<>();
-//        for (int i = 0; i < names.size(); i++) {
-//            Name namePrueba = names.get(i);
-//            nameViewList.add(conversionService.convert(namePrueba, NameView.class));
-//        }
-
-//        List<NameView> nameViewList = Stream.ofNullable(names)
-        List<NameView> nameViewList = names.stream()
+/*        List<NameView> nameViewList = new ArrayList<>();
+        for (int i = 0; i < names.size(); i++) {
+            Name namePrueba = names.get(i);
+            nameViewList.add(conversionService.convert(namePrueba, NameView.class));
+        }
+*/
+        List<NameView> nameViewList = Optional.ofNullable(names)
+                .orElse(Collections.emptyList())
+                .stream()
                 .map(name -> this.conversionService.convert(name, NameView.class))
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
 
-
         return nameViewList;
-
     }
 
     public void save(final NameView nameView){

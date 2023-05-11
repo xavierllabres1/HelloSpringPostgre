@@ -46,12 +46,12 @@ class NameServiceTest {
     @Test
     @DisplayName("Service - Find All Not EmptyList")
     void findAllNotEmpty() {
-        List<Name> nameList = Arrays.asList(Name.builder().id(1L).firstName("Jhon Smith").build());
+        List<Name> nameList = Collections.singletonList(Name.builder().id(1L).firstName("Jhon Smith").build());
 
-        List<NameView> nameViewListInstance = Arrays.asList(NameView.builder().id(1).firstName("Jhon").lastName("Smith").build());
+        NameView nameView = NameView.builder().id(1).firstName("Jhon").lastName("Smith").build();
 
         when(nameRepository.findAll()).thenReturn(nameList);
-        when(conversionService.convert(any(Name.class), (Class<NameView>)any())).thenReturn(nameViewListInstance.get(0));
+        when(conversionService.convert(any(Name.class), (Class<NameView>)any())).thenReturn(nameView);
 
         List<NameView> nameViewListResult = nameService.findAll();
         //JUnit
@@ -71,6 +71,20 @@ class NameServiceTest {
         //JUnit
         assertNotNull(names);
         assertEquals(0, names.size());
+        //Mockito
+        verify(nameRepository, times(1)).findAll();
+    }
+
+    @Test
+    @DisplayName("Service - Find All Null")
+    void findAllEmptyNull() {
+        when(nameRepository.findAll()).thenReturn(null);
+        List<NameView> names = nameService.findAll();
+
+        //JUnit
+        assertNotNull(names);
+        assertEquals(0, names.size());
+
         //Mockito
         verify(nameRepository, times(1)).findAll();
     }
